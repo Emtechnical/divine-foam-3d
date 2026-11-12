@@ -1,6 +1,6 @@
 # Divine Foam & Mattress — Business Audit
 
-> Status: Official business name, shop postal PIN, opening hours, currently supplied brands, Pidilite / Fevicol authorized-dealer status, and the decision to retain the five existing website statistics have been confirmed by the business owner. Remaining verification items are listed below.
+> Status: Official business name, shop postal PIN, opening hours, currently supplied brands, Pidilite / Fevicol authorized-dealer status, retention of the five existing website statistics, and the current website product/service scope have been confirmed by the business owner. Remaining verification items are listed below.
 
 ## Confirmed business identity
 - Official business name: **Divine Foam & Mattress**
@@ -76,6 +76,12 @@ The existing site says material selection and supply support are based on custom
 - Stapler Pins
 - Other lining-work hardware items (not individually specified)
 
+## Confirmed product and service scope
+The business owner confirmed that the product and service list on the existing website is accurate and complete for the current website project. No additional products or services should be added unless separately confirmed.
+- Treat the listed products as materials/products supplied by Divine.
+- Do not infer mattress, sofa or furniture manufacturing, custom cutting, upholstery/lining labour, installation, delivery, or other services from the customer groups or product names alone.
+- For enquiries, direct customers to WhatsApp or the contact form rather than promising an unconfirmed service.
+
 ## Confirmed currently supplied brands
 The business owner confirmed that Divine currently supplies products associated with:
 - Kurl-On
@@ -133,7 +139,7 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 - Pidilite / Fevicol authorized-dealer status is confirmed by the business owner; use exact approved brand wording and assets.
 - Do not claim exclusive distribution unless separately confirmed.
 - Retain the five existing business statistics in the content plan, with their meaning and measurement period to be clarified before final publication.
-- Keep the catalogue grounded in the product names above.
+- Keep the catalogue grounded in the product names above; do not invent products or services.
 - Build separate paths for B2B/wholesale customers and retail customers.
 - Make category-level WhatsApp enquiries contextual to the selected product.
 - Use authentic business/shop/product photography wherever available.
@@ -143,4 +149,4 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 ## Open questions for business owner
 1. Confirm the exact map pin/directions URL for the shop (postal PIN is confirmed as 387002).
 2. Clarify the meaning and measurement period for each of the five retained business statistics.
-3. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the site.
+3. Provide actual product photos and current product variants/specifications, if these are to be shown beyond the confirmed category names.
