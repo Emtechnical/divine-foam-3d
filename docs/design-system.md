@@ -99,3 +99,12 @@
 4. Design desktop and mobile navigation including Home and English / ગુજરાતી controls.
 5. Approve homepage wireframe and key 3D storyboards before full implementation.
 6. Validate all content against the business audit before publishing.
+
+
+## Generated visual branding and logo-placement rule
+- When creating a new foam/material hero image, product visual, promotional graphic or animation keyframe, include the small official Divine logo only when it improves brand recognition and does not clutter the composition.
+- Use the exact original logo asset supplied by the owner. Never redraw, regenerate, recolour, distort, crop or otherwise modify it.
+- Place it discreetly with sufficient clear space and contrast; do not let it compete with the product/material subject or important text.
+- Do not invent a logo lockup or place a logo on every visual automatically. For pure decorative 3D scenes, a logo may be omitted; for branded hero/marketing visuals, prefer a subtle authentic logo placement.
+- Keep any text on generated visuals to a minimum. All business-critical text should remain live website text rather than baked into an image, so it stays crisp, accessible and translatable into Gujarati.
+- If the original logo file is not available at generation time, leave a clean reserved area or omit the logo. Never approximate it with generated lettering.
