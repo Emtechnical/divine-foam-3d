@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Menu, X, MapPin, Phone, Mail, MessageCircle, Home as HomeIcon } from 'lucide-react';
 import { copy, type Language } from './content';
+import MaterialScene from './three/MaterialScene';
 
 const whatsapp = 'https://wa.me/919724415440';
 const categories = [
@@ -28,7 +29,6 @@ export default function App() {
   return <div className={language === 'gu' ? 'site gujarati' : 'site'}>
     <header className="header">
       <a className="brand" href="#top" aria-label="Divine Foam & Mattress home">
-        <span className="brand-mark">D<span>.</span></span>
         <span className="brand-name">DIVINE <small>FOAM & MATTRESS</small></span>
       </a>
       <nav className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">
@@ -104,6 +104,6 @@ export default function App() {
       </div></section>
     </main>
 
-    <footer className="footer"><a className="footer-home" href="#top"><span className="brand-mark">D<span>.</span></span><b>DIVINE FOAM & MATTRESS</b></a><span>{t.footerNote}</span><a href="#top" className="back-top">BACK TO TOP ↑</a></footer>
+    <footer className="footer"><a className="footer-home" href="#top"><b>DIVINE FOAM & MATTRESS</b></a><span>{t.footerNote}</span><a href="#top" className="back-top">BACK TO TOP ↑</a></footer>
   </div>;
 }
