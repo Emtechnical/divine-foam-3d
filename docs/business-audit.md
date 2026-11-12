@@ -1,6 +1,6 @@
 # Divine Foam & Mattress — Business Audit
 
-> Status: Official business name, shop postal PIN, opening hours, currently supplied brands, Pidilite / Fevicol authorized-dealer status, retention of the five existing website statistics, and the current website product/service scope have been confirmed by the business owner. Remaining verification items are listed below.
+> Status: Official business name, shop postal PIN, opening hours, currently supplied brands, Pidilite / Fevicol authorized-dealer status, retention and cumulative interpretation of the five existing website statistics, and the current website product/service scope have been confirmed by the business owner. Remaining verification items are listed below.
 
 ## Confirmed business identity
 - Official business name: **Divine Foam & Mattress**
@@ -93,15 +93,15 @@ The business owner confirmed that Divine currently supplies products associated 
 ## Confirmed Pidilite / Fevicol authorization
 The business owner explicitly confirmed that Divine has authorized-dealer status for Pidilite / Fevicol. The new website may state **Authorized Dealer — Pidilite / Fevicol**, subject to using any exact current wording and logo/brand-use requirements provided by Pidilite. This confirmation does not establish exclusive distribution unless separately confirmed.
 
-## Existing website statistics — owner decision: KEEP
-The business owner chose to retain all five figures currently displayed on the old website:
+## Existing website statistics — owner decision: KEEP; period: cumulative
+The business owner approved retaining all five figures currently displayed on the old website and clarified that they represent cumulative quantities over the business's history, not annual figures or current stock:
 - **43,200+ sq. ft. Comfort**
 - **20+ Metric Tonnes Foam**
 - **600+ Litres Adhesive**
 - **2,500+ Metres Mattress Fabric**
 - **700+ Metres Recron**
 
-The owner has approved keeping these figures in the new website content plan. Before final publication, clarify their exact meaning, measurement period, and preferred wording/units so the claims are presented accurately. Do not invent a time period or reinterpret what each number measures.
+Use cumulative framing in the content plan. The exact underlying measurement definition and preferred wording for each figure should still be checked before final publication; do not invent a start date, time span, or reinterpret what each number measures.
 
 ## Claims not established by the current page
 Do not assume or advertise the following without confirmation:
@@ -138,7 +138,7 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 - The five brands listed above are confirmed as currently supplied.
 - Pidilite / Fevicol authorized-dealer status is confirmed by the business owner; use exact approved brand wording and assets.
 - Do not claim exclusive distribution unless separately confirmed.
-- Retain the five existing business statistics in the content plan, with their meaning and measurement period to be clarified before final publication.
+- Retain the five existing business statistics as cumulative business-history figures; clarify precise definitions before final publication.
 - Keep the catalogue grounded in the product names above; do not invent products or services.
 - Build separate paths for B2B/wholesale customers and retail customers.
 - Make category-level WhatsApp enquiries contextual to the selected product.
@@ -148,5 +148,5 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 
 ## Open questions for business owner
 1. Confirm the exact map pin/directions URL for the shop (postal PIN is confirmed as 387002).
-2. Clarify the meaning and measurement period for each of the five retained business statistics.
+2. Clarify the precise definition of each retained cumulative business statistic, if available.
 3. Provide actual product photos and current product variants/specifications, if these are to be shown beyond the confirmed category names.
