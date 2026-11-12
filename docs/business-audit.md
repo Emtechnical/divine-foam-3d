@@ -1,6 +1,6 @@
 # Divine Foam & Mattress — Business Audit
 
-> Status: Official business name and shop postal PIN have been confirmed by the business owner. Other details are extracted from the existing published website source. Items marked **VERIFY** must be confirmed before publication.
+> Status: Official business name, shop postal PIN, and opening hours have been confirmed by the business owner. Other details are extracted from the existing published website source. Items marked **VERIFY** must be confirmed before publication.
 
 ## Confirmed business identity
 - Official business name: **Divine Foam & Mattress**
@@ -16,6 +16,13 @@
 - Address: Pij Road, near MF Furniture, Nadiad, Gujarat
 - Shop postal PIN: **387002** (confirmed by business owner)
 - Existing Google Maps directions URL contains coordinates approximately 22.6913903, 72.8535865 and a 387001 postal reference (**VERIFY exact map pin/directions URL; postal PIN remains 387002**).
+
+## Confirmed opening hours
+The business owner confirmed that the existing website's published hours are current:
+- Monday–Thursday: 9:30 AM–7:30 PM
+- Friday: 9:30 AM–12:00 PM and 3:00 PM–7:30 PM
+- Saturday: 9:30 AM–7:30 PM
+- Sunday: Closed
 
 ## Business model and customer groups described
 - Wholesale and B2B supply
@@ -87,14 +94,6 @@ The existing site says material selection and supply support are based on custom
 
 **VERIFY:** Meaning, measurement period, source, and current accuracy of each figure. Omit from new site until approved.
 
-## Opening hours currently published
-- Monday–Thursday: 9:30 AM–7:30 PM
-- Friday: 9:30 AM–12:00 PM and 3:00 PM–7:30 PM
-- Saturday: 9:30 AM–7:30 PM
-- Sunday: Closed
-
-**VERIFY:** Confirm current hours before publishing.
-
 ## Claims not established by the current page
 Do not assume or advertise the following without confirmation:
 - Divine manufactures mattresses, sofas or furniture
@@ -126,17 +125,17 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 ## Content and design implications
 - Use the confirmed official business name: Divine Foam & Mattress.
 - Use the confirmed shop postal PIN: 387002.
+- Use the confirmed opening hours above.
 - Keep the catalogue grounded in the product names above.
 - Build separate paths for B2B/wholesale customers and retail customers.
 - Make category-level WhatsApp enquiries contextual to the selected product.
 - Use authentic business/shop/product photography wherever available.
 - Use genuine brand logo files, not AI-generated logo approximations.
-- Keep unverified numbers, claims, relationships, opening hours and map details out of public copy until approved.
+- Keep unverified numbers, claims, brand relationships and map details out of public copy until approved.
 
 ## Open questions for business owner
 1. Confirm the exact map pin/directions URL for the shop (postal PIN is confirmed as 387002).
-2. Confirm current opening hours.
-3. Confirm which of the displayed brands Divine currently supplies.
-4. Confirm current Pidilite/Fevicol authorized-dealer status.
-5. Confirm the five published business figures and their measurement period, or approve omitting them.
-6. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the site.
+2. Confirm which of the displayed brands Divine currently supplies.
+3. Confirm current Pidilite/Fevicol authorized-dealer status.
+4. Confirm the five published business figures and their measurement period, or approve omitting them.
+5. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the site.
