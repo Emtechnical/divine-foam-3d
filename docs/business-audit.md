@@ -1,12 +1,16 @@
-# Divine Foam & Furniture — Business Audit (Draft)
+# Divine Foam & Mattress — Business Audit
 
-> Status: extracted from the existing published website source. This is an evidence ledger, not final approved marketing copy. Items marked **VERIFY** must be confirmed by the business before publication.
+> Status: The official business name has been confirmed by the business owner. Other details below are extracted from the existing published website source. Items marked **VERIFY** must be confirmed before publication.
+
+## Confirmed business identity
+- Official business name: **Divine Foam & Mattress**
+- Confirmation: explicitly confirmed by the business owner in this project.
+- Do not use "Divine Foam & Furniture" as the official business name.
 
 ## Source
 - Existing website: https://divinefoam.github.io/
 - Source file inspected: https://github.com/divinefoam/divinefoam.github.io/blob/main/index.html
-- Current website title/name: Divine Foam & Mattress
-- Proposed new identity for this project: Divine Foam & Furniture
+- Existing website title/name: Divine Foam & Mattress
 
 ## Contact and location published on the existing website
 - Phone / WhatsApp: +91 97244 15440
@@ -122,6 +126,7 @@ Do not assume or advertise the following without confirmation:
 These filenames are leads from the source HTML. Check that each asset exists, is current, high quality, and legally suitable before reuse.
 
 ## Content and design implications
+- Use the confirmed official business name: Divine Foam & Mattress.
 - Keep the catalogue grounded in the product names above.
 - Build separate paths for B2B/wholesale customers and retail customers.
 - Make category-level WhatsApp enquiries contextual to the selected product.
@@ -130,10 +135,9 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 - Keep unverified numbers, claims, relationships, opening hours and postal details out of public copy until approved.
 
 ## Open questions for business owner
-1. Is "Divine Foam & Furniture" the final official business name?
-2. Confirm the correct postal PIN and exact map pin/address.
-3. Confirm current opening hours.
-4. Confirm which of the displayed brands Divine currently supplies.
-5. Confirm current Pidilite/Fevicol authorized-dealer status.
-6. Confirm the five published business figures and their measurement period, or approve omitting them.
-7. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the old site.
+1. Confirm the correct postal PIN and exact map pin/address.
+2. Confirm current opening hours.
+3. Confirm which of the displayed brands Divine currently supplies.
+4. Confirm current Pidilite/Fevicol authorized-dealer status.
+5. Confirm the five published business figures and their measurement period, or approve omitting them.
+6. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the old site.
