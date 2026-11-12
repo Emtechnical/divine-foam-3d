@@ -1,6 +1,6 @@
 # Divine Foam & Mattress — Business Audit
 
-> Status: Official business name, shop postal PIN, and opening hours have been confirmed by the business owner. Other details are extracted from the existing published website source. Items marked **VERIFY** must be confirmed before publication.
+> Status: Official business name, shop postal PIN, opening hours, and currently supplied brand list have been confirmed by the business owner. Other details are extracted from the existing published website source. Items marked **VERIFY** must be confirmed before publication.
 
 ## Confirmed business identity
 - Official business name: **Divine Foam & Mattress**
@@ -76,14 +76,18 @@ The existing site says material selection and supply support are based on custom
 - Stapler Pins
 - Other lining-work hardware items (not individually specified)
 
-## Brands/logos shown on the existing website
-- KurlOn
+## Confirmed currently supplied brands
+The business owner confirmed that Divine currently supplies products associated with all of the following brands:
+- Kurl-On
 - Prime Comfort
 - Jindal
-- Flexipol-Resiflex
+- Flexipol / Resiflex
 - Pidilite / Fevicol
 
-**VERIFY:** Confirm which brands/products Divine currently stocks or supplies, and the exact nature of each relationship. The current page states "Authorized Dealer — Pidilite / Fevicol"; do not republish this claim until current authorization is confirmed.
+This confirmation establishes the current supply relationship as stated by the business owner. It does **not** by itself establish exclusive distribution, official partnership, or authorized-dealer status.
+
+### Separate authorization claim — VERIFY
+The existing website states "Authorized Dealer — Pidilite / Fevicol". Confirm current authorization before publishing this specific claim. Until then, describe Pidilite / Fevicol only as brands whose products Divine supplies.
 
 ## Existing website claims requiring confirmation
 - "43,200+ sq.ft. Comfort"
@@ -126,16 +130,17 @@ These filenames are leads from the source HTML. Check that each asset exists, is
 - Use the confirmed official business name: Divine Foam & Mattress.
 - Use the confirmed shop postal PIN: 387002.
 - Use the confirmed opening hours above.
+- The five brands listed above are confirmed as currently supplied.
+- Do not claim exclusive distribution or authorized-dealer status without separate verification.
 - Keep the catalogue grounded in the product names above.
 - Build separate paths for B2B/wholesale customers and retail customers.
 - Make category-level WhatsApp enquiries contextual to the selected product.
 - Use authentic business/shop/product photography wherever available.
 - Use genuine brand logo files, not AI-generated logo approximations.
-- Keep unverified numbers, claims, brand relationships and map details out of public copy until approved.
+- Keep unverified numbers, authorization claims and map details out of public copy until approved.
 
 ## Open questions for business owner
 1. Confirm the exact map pin/directions URL for the shop (postal PIN is confirmed as 387002).
-2. Confirm which of the displayed brands Divine currently supplies.
-3. Confirm current Pidilite/Fevicol authorized-dealer status.
-4. Confirm the five published business figures and their measurement period, or approve omitting them.
-5. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the site.
+2. Confirm current Pidilite/Fevicol authorized-dealer status if that wording is desired.
+3. Confirm the five published business figures and their measurement period, or approve omitting them.
+4. Provide actual product photos, current product variants/specifications, and any services not clearly listed on the site.
