@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, Menu, X, MapPin, Phone, Mail, MessageCircle, Home as HomeIcon } from 'lucide-react';
 import { copy, type Language } from './content';
 import MaterialScene from './three/MaterialScene';
+import Atmosphere from './Atmosphere';
 
 const whatsapp = 'https://wa.me/919724415440';
 const categories = [
@@ -27,9 +28,10 @@ export default function App() {
   const closeMenu = () => setMenuOpen(false);
 
   return <div className={language === 'gu' ? 'site gujarati' : 'site'}>
+    <Atmosphere />
     <header className="header">
       <a className="brand" href="#top" aria-label="Divine Foam & Mattress home">
-        <span className="brand-name">DIVINE <small>FOAM & MATTRESS</small></span>
+        <img className="brand-logo" src="/divine-foam-3d/assets/divine-logo.png" alt="Divine Foam & Mattress logo" />
       </a>
       <nav className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">
         <a href="#top" onClick={closeMenu}><HomeIcon size={15}/>{t.nav.home}</a>
@@ -48,6 +50,7 @@ export default function App() {
 
     <main id="top">
       <section className="hero section-wrap">
+        <div className="hero-ambient" aria-hidden="true"><span className="ambient-orb orb-a"/><span className="ambient-orb orb-b"/><span className="ambient-orb orb-c"/></div>
         <div className="hero-copy">
           <div className="eyebrow"><span/> {t.eyebrow}</div>
           <h1>{t.heroTitle}</h1>
@@ -71,7 +74,7 @@ export default function App() {
         <div className="section-heading"><div><div className="section-kicker">{t.catalogueEyebrow}</div><h2>{t.catalogueTitle}</h2></div><p>{t.catalogueBody}</p></div>
         <div className="category-grid">
           {categories.map((category) => <a className="category-card" href={whatsapp + '?text=' + encodeURIComponent('Hello Divine Foam & Mattress, I would like to enquire about ' + copy.en.categories[category.key][0] + '.') } target="_blank" rel="noreferrer" key={category.number}>
-            <div className={'category-art art-' + category.art}><span className="category-number">{category.number}</span><div className="category-shape"/></div>
+            <div className={'category-art art-' + category.art}><span className="category-number">{category.number}</span>{category.image ? <img src={category.image} alt={t.categories[category.key][0]} loading="lazy"/> : <div className="category-shape"/>}</div>
             <div className="category-info"><div><h3>{t.categories[category.key][0]}</h3><p>{t.categories[category.key][1]}</p></div><span className="round-arrow"><ArrowUpRight size={17}/></span></div>
           </a>)}
         </div>
@@ -94,6 +97,7 @@ export default function App() {
       </div></section>
     </main>
 
+    <a className="floating-home" href="#top" aria-label={t.nav.home}><HomeIcon size={17}/><span>{t.nav.home}</span></a>
     <footer className="footer"><a className="footer-home" href="#top"><b>DIVINE FOAM & MATTRESS</b></a><span>{t.footerNote}</span><a href="#top" className="back-top">BACK TO TOP ↑</a></footer>
   </div>;
 }
