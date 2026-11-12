@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Menu, X, MapPin, Phone, Mail, MessageCircle, Home as HomeIcon } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Menu, X, MapPin, Phone, Mail, MessageCircle, Home as HomeIcon } from 'lucide-react';
 import { copy, type Language } from './content';
 import MaterialScene from './three/MaterialScene';
 
@@ -58,17 +58,7 @@ export default function App() {
           </div>
           <div className="hero-meta"><span>01 / 06</span><i/> <span>NADIAD · GUJARAT</span></div>
         </div>
-        <div className="hero-art" aria-label="Abstract layered foam material illustration" role="img">
-          <div className="art-orbit orbit-one"/><div className="art-orbit orbit-two"/>
-          <div className="material-stack">
-            <div className="layer layer-top"><span>COMFORT</span></div>
-            <div className="layer layer-cyan"><span>FLEX</span></div>
-            <div className="layer layer-gold"><span>SUPPORT</span></div>
-            <div className="layer layer-blue"><span>FOUNDATION</span></div>
-          </div>
-          <div className="art-caption"><span>01 — MATERIAL STUDY</span><b>Layers of possibility.</b></div>
-          <div className="art-side-note">FOAM / FABRIC / COMFORT</div>
-        </div>
+        <div className="hero-art"><MaterialScene/><div className="art-side-note">FOAM / FABRIC / COMFORT</div></div>
         <div className="hero-bottom"><span>SCROLL TO EXPLORE</span><span className="scroll-line"/></div>
       </section>
 
