@@ -29,6 +29,7 @@ function Toybox(){
   const pointer=pointerWorld.current;
   const active=state.pointer.x>-1.1&&state.pointer.x<1.1&&state.pointer.y>-1.1&&state.pointer.y<1.1;
   if(burst.current){
+   if(burst.current.time<0)burst.current.time=state.clock.elapsedTime;
    const elapsed=state.clock.elapsedTime-burst.current.time;
    if(elapsed>.72){burst.current=null;flash.current=0}else flash.current=1-elapsed/.72;
   }
@@ -69,11 +70,10 @@ function Toybox(){
 
  const scatter=(event:ThreeEvent<PointerEvent>)=>{
   event.stopPropagation();
-  burst.current={x:event.point.x,y:event.point.y,time:0};
-  // Clock time is supplied on the next frame; the immediate flash is deliberate.
+  burst.current={x:event.point.x,y:event.point.y,time:-1};
   flash.current=1;
  };
- useFrame((state)=>{if(burst.current&&burst.current.time===0)burst.current.time=state.clock.elapsedTime;});
+ 
  return <group>
   {toys.map((toy,i)=><group key={i} ref={el=>{groupRefs.current[i]=el}} position={[toy.x,toy.y,toy.z]} scale={toy.scale} onPointerDown={scatter}>
    {toy.kind===0?<RoundedBox args={[.92,.72,.52]} radius={.13} smoothness={5} castShadow receiveShadow><meshPhysicalMaterial color={toy.color} roughness={.24} metalness={.12} clearcoat={.9} clearcoatRoughness={.12}/></RoundedBox>
