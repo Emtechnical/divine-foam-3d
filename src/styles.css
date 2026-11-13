@@ -269,3 +269,67 @@ html,body{background:#100d16;color:#f4eee7}
 .category-card:nth-child(6){transition-delay:.4s}
 @media(max-width:760px){.nav{background:rgba(16,13,22,.97);border-bottom-color:rgba(255,255,255,.12)}.category-art{height:190px}.floating-home{right:14px;bottom:14px}}
 @media(prefers-reduced-motion:reduce){.intro-grid,.section-heading,.category-card,.business-inner,.audience-row,.brands-section h2,.brand-list span,.contact-copy,.contact-details>*{opacity:1;transform:none;filter:none;transition:none}.category-art>img{transform:none!important}}
+
+
+/* Product-led cinematic hero: real Divine mattress photograph + camera parallax */
+.hero{min-height:0;height:calc(100svh - 82px);max-height:980px;margin:0 clamp(12px,1.8vw,28px);padding:0;border-radius:24px}
+.hero-copy{left:clamp(28px,6vw,92px);bottom:clamp(82px,11vh,122px);width:min(500px,43%);max-width:500px}
+.hero h1{font-size:clamp(50px,6.3vw,92px);max-width:550px}
+.hero-art{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+.product-depth-scene{position:absolute;inset:0;width:100%;height:100%;background:radial-gradient(ellipse at 67% 45%,#34253a 0%,#100d16 65%)}
+.product-depth-scene canvas{position:absolute!important;inset:0;width:100%!important;height:100%!important;cursor:grab}
+.product-depth-scene canvas:active{cursor:grabbing}
+.hero .hero-copy{z-index:4}
+.hero .hero-bottom{z-index:5}
+.hero .hero-ambient{opacity:.18}
+.product-scene-caption{position:absolute;right:clamp(26px,5vw,78px);bottom:clamp(32px,6vh,72px);display:flex;flex-direction:column;align-items:flex-end;gap:9px;text-align:right;pointer-events:none;color:#f2e9df}
+.product-scene-caption span,.product-scene-caption small{font:600 8px Inter,sans-serif;letter-spacing:.2em;color:#c1b3c7}
+.product-scene-caption b{font:500 clamp(20px,2.8vw,34px)/1 Sora,sans-serif;letter-spacing:-.055em}
+.product-scene-caption small{color:#d2b17b}
+.product-scene-index{position:absolute;right:clamp(26px,5vw,78px);top:38px;writing-mode:vertical-rl;font:600 8px Inter,sans-serif;letter-spacing:.2em;color:#b4a9b8;pointer-events:none}
+.hero .hero-description{max-width:360px}
+.hero .hero-meta{margin-top:30px}
+.hero .hero h1{max-width:500px}
+.hero .button-dark{background:linear-gradient(120deg,#d7b985,#9b7654);color:#1a1420}
+.hero .text-link{color:#f4eee7}
+
+/* Foam gallery stays full-viewport; real foam-types photo joins the 3D layer study */
+.showroom-photo-wrap{position:absolute;right:clamp(26px,7vw,108px);top:50%;transform:translateY(-50%);width:min(43vw,620px);height:min(58vh,510px);z-index:3;overflow:hidden;border:1px solid rgba(255,255,255,.23);border-radius:22px;background:rgba(255,255,255,.055);box-shadow:0 34px 100px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.16);backdrop-filter:blur(22px);pointer-events:none;transition:opacity .65s,transform .8s}
+.showroom-photo-wrap img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 29%;transform:scale(1.14);filter:saturate(.82) contrast(1.06) brightness(.94)}
+.showroom-photo-wrap:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,11,20,.02) 50%,rgba(15,11,20,.36));pointer-events:none}
+.showroom-photo-label{position:absolute;left:18px;bottom:17px;z-index:2;font:600 8px Inter,sans-serif;letter-spacing:.2em;color:#f4eee7;text-shadow:0 2px 10px #000}
+.showroom-sticky canvas{cursor:grab}
+.showroom-sticky canvas:active{cursor:grabbing}
+
+/* Tighten the vertical rhythm — keep chapters immersive without dead air */
+.intro-section{padding-top:76px;padding-bottom:82px}
+.catalogue-section{padding-top:76px;padding-bottom:88px}
+.business-section{padding-top:84px;padding-bottom:84px}
+.brands-section{padding-top:78px;padding-bottom:78px}
+.contact-section{padding-top:84px;padding-bottom:84px}
+.section-heading{margin-bottom:30px}
+.category-grid{gap:14px}
+.category-art{height:220px}
+.cinematic-showroom{height:560vh}
+@media(max-width:760px){
+ .hero{height:calc(100svh - 70px);min-height:690px;margin:0 9px;border-radius:16px}
+ .hero-copy{left:24px;right:24px;bottom:100px;width:auto;max-width:none}
+ .hero h1{font-size:clamp(45px,11vw,68px);max-width:460px}
+ .hero-description{max-width:310px}
+ .product-scene-caption{right:20px;top:24px;bottom:auto;align-items:flex-end}
+ .product-scene-caption b{font-size:20px}
+ .product-scene-caption span,.product-scene-caption small{font-size:6px}
+ .product-scene-index{display:none}
+ .showroom-photo-wrap{top:94px;right:20px;left:20px;transform:none;width:auto;height:210px;border-radius:14px}
+ .showroom-photo-label{left:12px;bottom:10px;font-size:7px}
+ .showroom-copy{bottom:64px}
+ .cinematic-showroom{height:520vh}
+ .intro-section{padding-top:58px;padding-bottom:64px}
+ .catalogue-section{padding-top:58px;padding-bottom:68px}
+ .business-section,.contact-section{padding-top:64px;padding-bottom:64px}
+ .brands-section{padding-top:58px;padding-bottom:58px}
+}
+@media(prefers-reduced-motion:reduce){
+ .product-scene-caption,.showroom-photo-wrap{transition:none}
+ .product-depth-scene canvas,.showroom-sticky canvas{cursor:default}
+}
