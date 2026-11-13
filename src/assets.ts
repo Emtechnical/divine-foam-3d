@@ -10,6 +10,10 @@ const photo = (filename: string) => `${import.meta.env.BASE_URL}assets/photos/${
 
 export const divineAssets = {
   logo: photo('DIVINE_LOGO.png'),
+  foamTypes: {
+    src: photo('MATTRESS_TYPES.png'),
+    alt: 'Foam types photograph supplied by Divine Foam & Mattress',
+  },
   mattressCushion: {
     src: photo('MATTRESS_CUSHION.png'),
     alt: 'Mattress and cushion material photograph supplied by Divine Foam & Mattress',
