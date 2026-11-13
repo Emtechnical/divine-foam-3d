@@ -88,3 +88,79 @@ body{background:radial-gradient(ellipse at 78% 4%,rgba(105,66,128,.2),transparen
 @keyframes showroom-in{from{opacity:0;transform:translateY(18px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
 @media(max-width:760px){.cinematic-showroom{height:510vh}.showroom-sticky{min-height:560px}.showroom-vignette{background:linear-gradient(0deg,rgba(12,9,16,.9) 0%,rgba(12,9,16,.65) 38%,transparent 78%)}.showroom-copy{left:24px;right:24px;top:auto;bottom:78px;transform:none;width:auto}.showroom-copy h2{font-size:clamp(36px,10vw,56px);margin:14px 0 10px}.showroom-copy p{font-size:11px;max-width:310px}.showroom-progress{margin:18px 0 18px}.showroom-topline{top:20px;font-size:7px}.showroom-topline span:last-child{max-width:120px;text-align:right;line-height:1.6}.showroom-side{right:15px;bottom:28px;font-size:6px}.hero{background:radial-gradient(ellipse at 70% 48%,rgba(119,73,145,.19),transparent 48%),#100d16}.hero-art{background:transparent}}
 @media(prefers-reduced-motion:reduce){.showroom-copy h2,.showroom-copy p{animation:none}}
+
+
+/* Divine asset integration + first glass-surface pass */
+.brand-logo{
+  display:block;
+  width:clamp(112px,12vw,154px);
+  height:58px;
+  object-fit:contain;
+  object-position:left center;
+}
+.category-art{
+  border-radius:10px;
+  isolation:isolate;
+}
+.category-art>img{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .4s ease;
+}
+.category-card:hover .category-art>img,
+.category-card:focus-visible .category-art>img{
+  transform:scale(1.055);
+}
+.category-art:has(>img)::after{
+  content:'';
+  position:absolute;
+  inset:55% 0 0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(transparent,#17131e38);
+}
+.category-art:has(>img) .category-number{
+  z-index:3;
+  padding:7px 9px;
+  border:1px solid #ffffff65;
+  border-radius:999px;
+  color:#fff;
+  background:#17131e42;
+  backdrop-filter:blur(12px);
+}
+.category-art:has(>img) .category-shape{display:none}
+.header{
+  background:rgba(246,243,238,.62);
+  border-bottom-color:rgba(255,255,255,.42);
+  box-shadow:0 8px 34px rgba(33,22,36,.045);
+  backdrop-filter:blur(24px) saturate(145%);
+  -webkit-backdrop-filter:blur(24px) saturate(145%);
+}
+.language-toggle,.menu-toggle{
+  background:rgba(255,255,255,.32);
+  border-color:rgba(69,36,61,.2);
+  backdrop-filter:blur(12px);
+}
+.category-card{
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:14px;
+  background:rgba(255,255,255,.48);
+  box-shadow:0 12px 34px rgba(48,31,46,.045);
+  backdrop-filter:blur(18px) saturate(125%);
+  -webkit-backdrop-filter:blur(18px) saturate(125%);
+}
+.category-card:hover{
+  box-shadow:0 24px 52px rgba(48,31,46,.12);
+}
+@media(max-width:760px){
+  .brand-logo{width:112px;height:48px}
+  .category-art{height:190px}
+}
+@media(prefers-reduced-motion:reduce){
+  .category-art>img{transition:none}
+}
