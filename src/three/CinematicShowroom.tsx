@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { ContactShadows, Environment, Float, RoundedBox, Text, MeshTransmissionMaterial } from '@react-three/drei';
+import { ContactShadows, Environment, Float, RoundedBox } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import type { MutableRefObject } from 'react';
 import * as THREE from 'three';
 
 type Language = 'en' | 'gu';
@@ -63,7 +65,7 @@ function ArchitecturalStage(){
   <mesh position={[0,4,-5]}><torusGeometry args={[3.3,.045,12,96,Math.PI]}/><meshStandardMaterial color="#b99667" metalness={.75} roughness={.3}/></mesh>
  </group>;
 }
-function Scene({progress}:{progress:React.MutableRefObject<number>}){
+function Scene({progress}:{progress:MutableRefObject<number>}){
  const groups=useRef<(THREE.Group|null)[]>([]), cameraTarget=useRef(new THREE.Vector3());
  const camera=useThree(s=>s.camera);
  const models=[FoamModel,MattressModel,FabricModel,RecronModel,RebondModel,AdhesiveModel];
