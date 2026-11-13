@@ -14,7 +14,7 @@ const categories = [
   { key: 3, number: '04', art: 'fabric', image: divineAssets.sofaFabric.src, imageAlt: divineAssets.sofaFabric.alt },
   { key: 4, number: '05', art: 'recron', image: divineAssets.recronPadding.src, imageAlt: divineAssets.recronPadding.alt },
   { key: 5, number: '06', art: 'adhesive', image: divineAssets.liningHardware.src, imageAlt: divineAssets.liningHardware.alt },
-];
+] as const;
 
 export default function App() {
   const [language, setLanguage] = useState<Language>(() => (localStorage.getItem('divine-language') as Language) || 'en');
