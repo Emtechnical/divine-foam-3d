@@ -232,3 +232,40 @@ body{background:radial-gradient(ellipse at 78% 4%,rgba(105,66,128,.2),transparen
  .art-side-note{display:none}
 }
 @media(prefers-reduced-motion:reduce){.toybox-scene canvas{cursor:default}}
+
+
+/* Divine v2 — continuous dark glass system and deliberate photo framing */
+:root{color-scheme:dark;--paper:#100d16;--ink:#f4eee7;--plum:#38243d;--champagne:#d2b17b}
+html,body{background:#100d16;color:#f4eee7}
+.site{background:radial-gradient(ellipse at 82% 12%,rgba(104,70,128,.12),transparent 32%),#100d16;color:#f4eee7}
+.header{background:rgba(16,13,22,.62);border-bottom:1px solid rgba(255,255,255,.10);box-shadow:0 12px 40px rgba(0,0,0,.16);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%)}
+.nav a{color:rgba(244,238,231,.76)}.nav a:hover{color:#e5c895}
+.language-toggle,.menu-toggle{color:#f4eee7;border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.055)}
+.header-cta{background:rgba(210,177,123,.92);color:#17111a}
+.intro-section{background:linear-gradient(180deg,rgba(255,255,255,.018),transparent);border-top-color:rgba(255,255,255,.09)}
+.intro-grid h2,.section-heading h2,.business-inner h2,.brands-section h2,.contact-copy h2{color:#f4eee7}
+.intro-grid p,.section-heading>p{color:#b9aeba}
+.catalogue-section{background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.category-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(255,255,255,.045);box-shadow:0 18px 55px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.07);backdrop-filter:blur(24px) saturate(135%);-webkit-backdrop-filter:blur(24px) saturate(135%)}
+.category-card:hover{transform:translateY(-8px);border-color:rgba(210,177,123,.48);box-shadow:0 28px 70px rgba(0,0,0,.34),0 0 0 1px rgba(210,177,123,.08)}
+.category-art{border-radius:12px;background:linear-gradient(135deg,#29212f,#17141d);overflow:hidden}
+.category-art>img{object-fit:cover;object-position:center 30%;transform:scale(1.24);filter:saturate(.78) contrast(1.06) brightness(.91);border-radius:0;mix-blend-mode:normal}
+.category-card:hover .category-art>img,.category-card:focus-visible .category-art>img{transform:scale(1.34);filter:saturate(.95) contrast(1.08) brightness(1)}
+.category-art:has(>img)::after{inset:0;background:linear-gradient(180deg,rgba(12,9,16,.04) 45%,rgba(12,9,16,.28))}
+.category-number{color:#e7d9c5}.category-info h3{color:#f4eee7}.category-info p{color:#b9aeba}
+.round-arrow{color:#e5c895;border-color:rgba(229,200,149,.35);background:rgba(255,255,255,.035)}
+.business-section{background:linear-gradient(115deg,#24182b,#39253b 54%,#17131f)}
+.brands-section{background:rgba(255,255,255,.018);border-top:1px solid rgba(255,255,255,.07)}
+.brand-list span{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.16);color:#eadfce;backdrop-filter:blur(18px)}
+.brand-note{color:#b9aeba}.contact-section{border-top:1px solid rgba(255,255,255,.1)}
+.footer{background:rgba(7,6,10,.96);border-top:1px solid rgba(255,255,255,.1)}
+.floating-home{position:fixed;right:22px;bottom:22px;z-index:25;display:flex;align-items:center;gap:8px;padding:12px 15px;border-radius:999px;text-decoration:none;font:600 10px Inter,sans-serif;letter-spacing:.08em;box-shadow:0 10px 32px rgba(0,0,0,.28)}
+.intro-grid,.section-heading,.category-card,.business-inner,.audience-row,.brands-section h2,.brand-list span,.contact-copy,.contact-details>*{opacity:0;transform:translate3d(0,26px,0);filter:blur(5px);transition:opacity .8s ease,transform .85s cubic-bezier(.2,.75,.2,1),filter .8s ease}
+.is-visible{opacity:1!important;transform:translate3d(0,0,0)!important;filter:blur(0)!important}
+.category-card:nth-child(2),.brand-list span:nth-child(2){transition-delay:.08s}
+.category-card:nth-child(3),.brand-list span:nth-child(3){transition-delay:.16s}
+.category-card:nth-child(4),.brand-list span:nth-child(4){transition-delay:.24s}
+.category-card:nth-child(5),.brand-list span:nth-child(5){transition-delay:.32s}
+.category-card:nth-child(6){transition-delay:.4s}
+@media(max-width:760px){.nav{background:rgba(16,13,22,.97);border-bottom-color:rgba(255,255,255,.12)}.category-art{height:190px}.floating-home{right:14px;bottom:14px}}
+@media(prefers-reduced-motion:reduce){.intro-grid,.section-heading,.category-card,.business-inner,.audience-row,.brands-section h2,.brand-list span,.contact-copy,.contact-details>*{opacity:1;transform:none;filter:none;transition:none}.category-art>img{transform:none!important}}
