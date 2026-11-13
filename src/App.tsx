@@ -4,15 +4,16 @@ import { copy, type Language } from './content';
 import MaterialScene from './three/MaterialScene';
 import CinematicShowroom from './three/CinematicShowroom';
 import Atmosphere from './Atmosphere';
+import { divineAssets } from './assets';
 
 const whatsapp = 'https://wa.me/919724415440';
 const categories = [
-  { key: 0, number: '01', art: 'foam', image: '' },
-  { key: 1, number: '02', art: 'mattress', image: '' },
-  { key: 2, number: '03', art: 'rebond', image: '' },
-  { key: 3, number: '04', art: 'fabric', image: '' },
-  { key: 4, number: '05', art: 'recron', image: '' },
-  { key: 5, number: '06', art: 'adhesive', image: '' },
+  { key: 0, number: '01', art: 'foam', image: '', imageAlt: '' },
+  { key: 1, number: '02', art: 'mattress', image: divineAssets.mattressCushion.src, imageAlt: divineAssets.mattressCushion.alt },
+  { key: 2, number: '03', art: 'rebond', image: divineAssets.rebondedFoam.src, imageAlt: divineAssets.rebondedFoam.alt },
+  { key: 3, number: '04', art: 'fabric', image: divineAssets.sofaFabric.src, imageAlt: divineAssets.sofaFabric.alt },
+  { key: 4, number: '05', art: 'recron', image: divineAssets.recronPadding.src, imageAlt: divineAssets.recronPadding.alt },
+  { key: 5, number: '06', art: 'adhesive', image: divineAssets.liningHardware.src, imageAlt: divineAssets.liningHardware.alt },
 ];
 
 export default function App() {
@@ -32,7 +33,7 @@ export default function App() {
     <Atmosphere />
     <header className="header">
       <a className="brand" href="#top" aria-label="Divine Foam & Mattress home">
-        <img className="brand-logo" src="/divine-foam-3d/assets/divine-logo.png" alt="Divine Foam & Mattress logo" />
+        <img className="brand-logo" src={divineAssets.logo} alt="Divine Foam & Mattress logo" />
       </a>
       <nav className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">
         <a href="#top" onClick={closeMenu}><HomeIcon size={15}/>{t.nav.home}</a>
@@ -77,7 +78,7 @@ export default function App() {
         <div className="section-heading"><div><div className="section-kicker">{t.catalogueEyebrow}</div><h2>{t.catalogueTitle}</h2></div><p>{t.catalogueBody}</p></div>
         <div className="category-grid">
           {categories.map((category) => <a className="category-card" href={whatsapp + '?text=' + encodeURIComponent('Hello Divine Foam & Mattress, I would like to enquire about ' + copy.en.categories[category.key][0] + '.') } target="_blank" rel="noreferrer" key={category.number}>
-            <div className={'category-art art-' + category.art}><span className="category-number">{category.number}</span>{category.image ? <img src={category.image} alt={t.categories[category.key][0]} loading="lazy"/> : <div className="category-shape"/>}</div>
+            <div className={'category-art art-' + category.art}><span className="category-number">{category.number}</span>{category.image ? <img src={category.image} alt={category.imageAlt || t.categories[category.key][0]} loading="lazy" decoding="async"/> : <div className="category-shape"/>}</div>
             <div className="category-info"><div><h3>{t.categories[category.key][0]}</h3><p>{t.categories[category.key][1]}</p></div><span className="round-arrow"><ArrowUpRight size={17}/></span></div>
           </a>)}
         </div>
