@@ -98,7 +98,7 @@ export default function App() {
         <div className="section-heading"><div><div className="section-kicker">{t.catalogueEyebrow}</div><h2>{t.catalogueTitle}</h2></div><p>{t.catalogueBody}</p></div>
         <div className="category-grid">
           {categories.map((category) => <a className="category-card" href={whatsapp + '?text=' + encodeURIComponent('Hello Divine Foam & Mattress, I would like to enquire about ' + copy.en.categories[category.key][0] + '.') } target="_blank" rel="noreferrer" key={category.number}>
-            <div className={'category-art art-' + category.art}><span className="category-number">{category.number}</span>{category.image ? <img src={category.image} alt={category.imageAlt || t.categories[category.key][0]} loading="lazy" decoding="async"/> : <div className="category-shape"/>}</div>
+            <div className={'category-art art-' + category.art}><span className="category-number">{category.number}</span>{category.image ? <img src={category.image} alt={category.imageAlt || 'Divine Foam materials'} loading="lazy" decoding="async"/> : <div className="category-shape"/>}</div>
             <div className="category-info"><div><h3>{t.categories[category.key][0]}</h3><p>{t.categories[category.key][1]}</p></div><span className="round-arrow"><ArrowUpRight size={17}/></span></div>
           </a>)}
         </div>
