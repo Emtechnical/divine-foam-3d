@@ -26,6 +26,26 @@ export default function App() {
     document.documentElement.lang = language === 'gu' ? 'gu' : 'en';
   }, [language]);
 
+  useEffect(() => {
+    const targets = document.querySelectorAll<HTMLElement>(
+      '.intro-grid, .section-heading, .category-card, .business-inner, .audience-row, .brands-section h2, .brand-list span, .contact-copy, .contact-details > *'
+    );
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach((node) => node.classList.add('is-visible'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+    targets.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
   const changeLanguage = () => setLanguage(language === 'en' ? 'gu' : 'en');
   const closeMenu = () => setMenuOpen(false);
 
