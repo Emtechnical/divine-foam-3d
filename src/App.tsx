@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, Menu, X, MapPin, Phone, Mail, MessageCircle, Home as HomeIcon } from 'lucide-react';
 import { copy, type Language } from './content';
 import MaterialScene from './three/MaterialScene';
+import CinematicShowroom from './three/CinematicShowroom';
 import Atmosphere from './Atmosphere';
 
 const whatsapp = 'https://wa.me/919724415440';
@@ -64,6 +65,8 @@ export default function App() {
         <div className="hero-art"><MaterialScene/><div className="art-side-note">FOAM / FABRIC / COMFORT</div></div>
         <div className="hero-bottom"><span>SCROLL TO EXPLORE</span><span className="scroll-line"/></div>
       </section>
+
+      <CinematicShowroom language={language}/>
 
       <section className="intro-section section-wrap" id="about">
         <div className="section-kicker">{t.introEyebrow}</div>
