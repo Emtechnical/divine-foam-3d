@@ -6,7 +6,6 @@ import type { MutableRefObject } from 'react';
 import * as THREE from 'three';
 
 type Language = 'en' | 'gu';
-const foamTypesPhoto = `${import.meta.env.BASE_URL}assets/photos/MATTRESS_TYPES.png`;
 const chapters = [
  {eyebrow:'01 / THE MATERIAL GALLERY', title:'A world built from comfort.', body:'Explore the textures and structures behind foam, bedding and furnishing materials.', guTitle:'આરામની દુનિયા, મટિરિયલ્સથી બનેલી.', guBody:'ફોમ, બેડિંગ અને ફર્નિશિંગ મટિરિયલ્સની રચના અને ટેક્સચર જુઓ.'},
  {eyebrow:'02 / FOAM STUDIES', title:'Layers with a purpose.', body:'PU, HR, bonded, soft, hard and memory foam — presented as a study of form and texture.', guTitle:'દરેક લેયરનો પોતાનો હેતુ.', guBody:'PU, HR, બોન્ડેડ, સોફ્ટ, હાર્ડ અને મેમરી ફોમ.'},
