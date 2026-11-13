@@ -164,3 +164,71 @@ body{background:radial-gradient(ellipse at 78% 4%,rgba(105,66,128,.2),transparen
 @media(prefers-reduced-motion:reduce){
   .category-art>img{transition:none}
 }
+
+/* Blockhaus-inspired full-window material toybox hero */
+.hero{
+  height:min(860px,calc(100svh - 82px));
+  min-height:690px;
+  display:block;
+  padding:0;
+  margin:0 clamp(14px,2.2vw,34px);
+  border-radius:22px;
+  background:#111016!important;
+  isolation:isolate;
+  overflow:hidden;
+  box-shadow:0 28px 90px rgba(0,0,0,.32);
+}
+.hero-art{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  display:block;
+  perspective:none;
+}
+.hero-art:before{display:none}
+.toybox-scene{position:absolute;inset:0;width:100%;height:100%;background:radial-gradient(ellipse at 52% 46%,#292331 0%,#111016 72%)}
+.toybox-scene canvas{position:absolute!important;inset:0;width:100%!important;height:100%!important;cursor:grab}
+.toybox-scene canvas:active{cursor:grabbing}
+.toybox-caption{position:absolute;right:clamp(24px,5vw,76px);bottom:clamp(30px,6vh,68px);display:flex;flex-direction:column;align-items:flex-end;gap:10px;color:#eee7dd;pointer-events:none;text-align:right}
+.toybox-caption span,.toybox-caption small{font:600 8px Inter,sans-serif;letter-spacing:.2em;color:#b4a9b8}
+.toybox-caption b{font:500 clamp(22px,3vw,38px)/1 Sora,sans-serif;letter-spacing:-.055em}
+.toybox-caption small{color:#d0b17d}
+.hero-copy{
+  position:absolute;
+  left:clamp(28px,7vw,104px);
+  bottom:clamp(74px,11vh,124px);
+  z-index:3;
+  width:min(610px,58%);
+  max-width:610px;
+  pointer-events:none;
+}
+.hero-copy .hero-actions,.hero-copy .hero-actions a{pointer-events:auto}
+.hero .eyebrow{color:#d0b17d}
+.hero .eyebrow span{background:#d0b17d;box-shadow:0 0 16px #d0b17d}
+.hero h1{font-size:clamp(54px,7vw,104px);line-height:.98;max-width:720px;margin:24px 0 20px;color:#f4eee7;text-shadow:0 12px 50px #0008}
+.hero-description{color:#c4bac7;max-width:430px;font-size:13px}
+.hero .hero-meta{color:#a99eae;margin-top:38px}
+.hero .hero-meta i{background:#756a7b}
+.hero .button-dark{background:#d2b17b;color:#17111a}
+.hero .text-link{color:#f4eee7}
+.hero-bottom{z-index:4;color:#a99eae;bottom:28px}
+.hero-bottom .scroll-line{background:#817387}
+.hero .hero-ambient{opacity:.3}
+.hero .ambient-orb{mix-blend-mode:screen}
+.art-side-note{right:clamp(22px,4vw,58px);top:34%;color:#b4a9b8;z-index:2}
+@media(max-width:760px){
+ .hero{margin:0 9px;min-height:760px;height:calc(100svh - 70px);border-radius:16px}
+ .hero-art{position:absolute;inset:0;height:100%}
+ .hero-copy{left:25px;right:25px;bottom:106px;width:auto;max-width:none}
+ .hero h1{font-size:clamp(48px,12vw,68px);max-width:500px}
+ .hero-description{font-size:12px;max-width:330px}
+ .hero-meta{margin-top:25px}
+ .toybox-caption{right:22px;top:30px;bottom:auto}
+ .toybox-caption b{font-size:21px}
+ .toybox-caption span,.toybox-caption small{font-size:6px}
+ .hero-bottom{left:24px;right:24px;bottom:25px}
+ .art-side-note{display:none}
+}
+@media(prefers-reduced-motion:reduce){.toybox-scene canvas{cursor:default}}
