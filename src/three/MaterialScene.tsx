@@ -36,7 +36,10 @@ function Toybox(){
   for(let i=0;i<count;i++){
    const g=groupRefs.current[i];if(!g)continue;
    const v=velocities.current[i],toy=toys[i];
-   const anchor=new THREE.Vector3(toy.x,toy.y,toy.z);
+   const time=state.clock.elapsedTime;
+   const driftY=Math.sin(time*.9+i*1.73)*.105;
+   const driftZ=Math.cos(time*.72+i*1.21)*.12;
+   const anchor=new THREE.Vector3(toy.x,toy.y+driftY,toy.z+driftZ);
    v.add(anchor.sub(g.position).multiplyScalar(2.7*dt));
    v.multiplyScalar(Math.pow(.91,dt*60));
    if(active){
@@ -56,8 +59,9 @@ function Toybox(){
    g.position.y=THREE.MathUtils.clamp(g.position.y,-2.55,2.55);
    g.position.z=THREE.MathUtils.damp(g.position.z,toy.z,.9,dt);
    g.rotation.x=THREE.MathUtils.damp(g.rotation.x,v.y*.16,.9,dt);
-   g.rotation.y+=dt*(.08+v.x*.08);
-   g.rotation.z=THREE.MathUtils.damp(g.rotation.z,-v.x*.13,.8,dt);
+   g.rotation.y+=dt*(.16+v.x*.12);
+   g.rotation.x=THREE.MathUtils.damp(g.rotation.x,Math.sin(time*.7+i)*.12+v.y*.16,.9,dt);
+   g.rotation.z=THREE.MathUtils.damp(g.rotation.z,Math.sin(time*.55+i*1.4)*.09-v.x*.13,.8,dt);
   }
   // Lightweight sphere contacts keep the pile tactile without a heavyweight physics dependency.
   for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){
