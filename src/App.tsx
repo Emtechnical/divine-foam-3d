@@ -8,7 +8,7 @@ import { divineAssets } from './assets';
 
 const whatsapp = 'https://wa.me/919724415440';
 const categories = [
-  { key: 0, number: '01', art: 'foam', image: '', imageAlt: '' },
+  { key: 0, number: '01', art: 'foam', image: divineAssets.foamTypes.src, imageAlt: divineAssets.foamTypes.alt },
   { key: 1, number: '02', art: 'mattress', image: divineAssets.mattressCushion.src, imageAlt: divineAssets.mattressCushion.alt },
   { key: 2, number: '03', art: 'rebond', image: divineAssets.rebondedFoam.src, imageAlt: divineAssets.rebondedFoam.alt },
   { key: 3, number: '04', art: 'fabric', image: divineAssets.sofaFabric.src, imageAlt: divineAssets.sofaFabric.alt },
