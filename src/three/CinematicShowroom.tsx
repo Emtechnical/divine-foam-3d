@@ -6,6 +6,7 @@ import type { MutableRefObject } from 'react';
 import * as THREE from 'three';
 
 type Language = 'en' | 'gu';
+const foamTypesPhoto = `${import.meta.env.BASE_URL}assets/photos/MATTRESS_TYPES.png`;
 const chapters = [
  {eyebrow:'01 / THE MATERIAL GALLERY', title:'A world built from comfort.', body:'Explore the textures and structures behind foam, bedding and furnishing materials.', guTitle:'આરામની દુનિયા, મટિરિયલ્સથી બનેલી.', guBody:'ફોમ, બેડિંગ અને ફર્નિશિંગ મટિરિયલ્સની રચના અને ટેક્સચર જુઓ.'},
  {eyebrow:'02 / FOAM STUDIES', title:'Layers with a purpose.', body:'PU, HR, bonded, soft, hard and memory foam — presented as a study of form and texture.', guTitle:'દરેક લેયરનો પોતાનો હેતુ.', guBody:'PU, HR, બોન્ડેડ, સોફ્ટ, હાર્ડ અને મેમરી ફોમ.'},
@@ -75,7 +76,8 @@ function Scene({progress}:{progress:MutableRefObject<number>}){
    [5.4,3.2,8.6,0,0,0],[4.6,2.1,7.2,0,.1,0],[3.8,2.7,6.1,0,.25,0],[5.7,2.4,6.8,0,.1,0],[3.4,1.7,5.6,0,.2,0],[4.9,2.8,7.1,0,.1,0]
   ];
   const a=cameraPoints[Math.min(active,5)],b=cameraPoints[Math.min(active+1,5)];
-  cameraTarget.current.set(THREE.MathUtils.lerp(a[0],b[0],mix),THREE.MathUtils.lerp(a[1],b[1],mix),THREE.MathUtils.lerp(a[2],b[2],mix));
+  const pointerX=state.pointer.x, pointerY=state.pointer.y;
+  cameraTarget.current.set(THREE.MathUtils.lerp(a[0],b[0],mix)+pointerX*.78,THREE.MathUtils.lerp(a[1],b[1],mix)+pointerY*.42,THREE.MathUtils.lerp(a[2],b[2],mix)-Math.abs(pointerX)*.16);
   camera.position.lerp(cameraTarget.current,1-Math.exp(-delta*1.35));
   camera.lookAt(THREE.MathUtils.lerp(a[3],b[3],mix),THREE.MathUtils.lerp(a[4],b[4],mix),THREE.MathUtils.lerp(a[5],b[5],mix));
   groups.current.forEach((g,i)=>{if(!g)return;const d=Math.abs(p-i);const s=THREE.MathUtils.clamp(1-d*.9,.001,1);g.scale.lerp(new THREE.Vector3(s,s,s),1-Math.exp(-delta*4));g.rotation.y=THREE.MathUtils.damp(g.rotation.y,(i===active?-.12:0)+state.pointer.x*.08,2,delta);g.position.y=THREE.MathUtils.damp(g.position.y,-.2+Math.sin(state.clock.elapsedTime*.55+i)*.035,2,delta);});
