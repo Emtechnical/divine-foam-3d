@@ -410,3 +410,12 @@ html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){
   .cinematic-background{display:none}
 }
+
+
+/* Keep the moving cinematic world visibly present beneath readable copy */
+.site>main>section:not(.hero){background-color:rgba(16,13,22,.58)}
+.site>main>.intro-section{background:linear-gradient(180deg,rgba(16,13,22,.48),rgba(16,13,22,.62))!important}
+.site>main>.catalogue-section{background:linear-gradient(145deg,rgba(35,25,41,.68),rgba(16,13,22,.72))!important}
+.site>main>.business-section{background:linear-gradient(115deg,rgba(36,24,43,.74),rgba(57,37,59,.72) 54%,rgba(23,19,31,.76))!important}
+.site>main>.brands-section{background:rgba(13,11,18,.54)!important}
+.site>main>.contact-section{background:radial-gradient(ellipse at 80% 20%,rgba(111,71,137,.24),transparent 42%),linear-gradient(90deg,rgba(16,13,22,.74),rgba(16,13,22,.64))!important}
