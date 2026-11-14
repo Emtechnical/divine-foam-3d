@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-// @ts-expect-error GSAP's runtime plugin subpath is valid; its declaration is not resolved by this strict TS config.
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
