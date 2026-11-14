@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
+// @ts-expect-error GSAP's runtime plugin subpath is valid; its declaration is not resolved by this strict TS config.
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -247,8 +248,8 @@ export default function CinematicShowroom() {
       start: () => hero ? hero.offsetHeight : 0,
       end: () => Math.max(window.innerHeight + 1, document.documentElement.scrollHeight - window.innerHeight),
       invalidateOnRefresh: true,
-      onUpdate: (self) => requestProgress(self.progress),
-      onRefresh: (self) => requestProgress(self.progress),
+      onUpdate: (self: { progress: number }) => requestProgress(self.progress),
+      onRefresh: (self: { progress: number }) => requestProgress(self.progress),
     });
     ScrollTrigger.refresh();
 
