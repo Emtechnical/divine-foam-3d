@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const counts = [300, 270, 270, 210] as const;
 const totalFrames = counts.reduce((sum, count) => sum + count, 0);
@@ -89,7 +87,6 @@ export default function CinematicShowroom() {
     let disposed = false;
     let raf = 0;
     let scrollTrigger: ScrollTrigger | undefined;
-    let activeProgress = 0;
     let targetProgress = 0;
     let pointerX = 0;
     let pointerY = 0;
@@ -161,7 +158,8 @@ export default function CinematicShowroom() {
     const cache = new Map<string, HTMLImageElement>();
     const pending = new Set<string>();
     let displayedKey = '';
-    let lastDrawnFrame = 0;
+    let desiredKey = '';
+    const pointerTarget = new THREE.Vector2(0, 0);
 
     const drawFrame = (sceneIndex: number, frameNumber: number) => {
       const key = `${sceneIndex}:${frameNumber}`;
@@ -170,7 +168,6 @@ export default function CinematicShowroom() {
       sourceContext.drawImage(image, 0, 0, 1280, 720);
       texture.needsUpdate = true;
       displayedKey = key;
-      lastDrawnFrame = frameNumber;
     };
 
     const loadFrame = (sceneIndex: number, frameNumber: number, isPriority = false) => {
@@ -187,7 +184,7 @@ export default function CinematicShowroom() {
         pending.delete(key);
         if (disposed) return;
         cache.set(key, image);
-        if (isPriority) drawFrame(sceneIndex, frameNumber);
+        if (desiredKey === key) drawFrame(sceneIndex, frameNumber);
         trimCache(sceneIndex, frameNumber);
       };
       image.onerror = () => pending.delete(key);
@@ -212,6 +209,7 @@ export default function CinematicShowroom() {
     const requestProgress = (progress: number) => {
       targetProgress = Math.max(0, Math.min(1, progress));
       const { scene: sceneIndex, frame } = frameAtProgress(targetProgress);
+      desiredKey = `${sceneIndex}:${frame}`;
       loadFrame(sceneIndex, frame, true);
       for (let offset = 1; offset <= 10; offset += 1) loadFrame(sceneIndex, frame + offset);
       for (let offset = 1; offset <= 4; offset += 1) loadFrame(sceneIndex, frame - offset);
@@ -253,9 +251,9 @@ export default function CinematicShowroom() {
 
     const render = (time: number) => {
       if (disposed) return;
-      activeProgress += (targetProgress - activeProgress) * 0.16;
       material.uniforms.uTime.value = time * 0.001;
-      material.uniforms.uPointer.value.lerp(new THREE.Vector2(pointerX, pointerY), 0.055);
+      pointerTarget.set(pointerX, pointerY);
+      material.uniforms.uPointer.value.lerp(pointerTarget, 0.055);
       camera.position.x += (pointerX * 0.055 - camera.position.x) * 0.035;
       camera.position.y += (pointerY * 0.035 - camera.position.y) * 0.035;
       camera.lookAt(0, 0, -0.2);
