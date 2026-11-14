@@ -21,7 +21,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -f frames-upload.zip
+          if [ ! -f frames-upload.zip ]; then
+            echo "Archive is absent (likely the cleanup commit); nothing to extract."
+            exit 0
+          fi
           python - <<'PY'
           import json, zipfile
           archive = "frames-upload.zip"
