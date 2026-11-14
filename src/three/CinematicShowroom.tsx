@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 
 const counts = [300, 270, 270, 210] as const;
