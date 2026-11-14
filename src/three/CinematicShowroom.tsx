@@ -1,89 +1,8 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const sceneCounts = [300, 270, 270, 210] as const;
-const TOTAL = sceneCounts.reduce((sum, value) => sum + value, 0);
-const FRAME_ROOT = `${import.meta.env.BASE_URL}assets/frames`;
-
-function resolveFrame(progress: number) {
-  const globalIndex = Math.min(TOTAL - 1, Math.max(0, Math.round(progress * (TOTAL - 1))));
-  let offset = globalIndex;
-  for (let scene = 0; scene < sceneCounts.length; scene += 1) {
-    if (offset < sceneCounts[scene]) return { scene, frame: offset + 1, globalIndex };
-    offset -= sceneCounts[scene];
-  }
-  return { scene: 3, frame: sceneCounts[3], globalIndex: TOTAL - 1 };
-}
-
-function createCinematicMaterial(texture: THREE.Texture) {
-  return new THREE.ShaderMaterial({
-    uniforms: {
-      uMap: { value: texture },
-      uPointer: { value: new THREE.Vector2() },
-      uTime: { value: 0 },
-      uResolution: { value: new THREE.Vector2(1, 1) },
-      uScroll: { value: 0 },
-    },
-    vertexShader: `
-      uniform sampler2D uMap;
-      uniform vec2 uPointer;
-      uniform float uTime;
-      uniform float uScroll;
-      varying vec2 vUv;
-      varying float vRelief;
-      void main() {
-        vUv = uv;
-        vec4 pixel = texture2D(uMap, uv);
-        float luminance = dot(pixel.rgb, vec3(0.2126, 0.7152, 0.0722));
-        float radial = 1.0 - smoothstep(0.12, 0.72, distance(uv, vec2(0.5)));
-        float directional = dot(uv - 0.5, uPointer);
-        float depth = (luminance - 0.5) * 0.16;
-        depth += radial * directional * 0.20;
-        depth += radial * sin(uTime * 0.18 + uv.y * 5.0) * 0.006;
-        vec3 p = position;
-        p.z += depth;
-        p.x += uPointer.x * (uv.x - 0.5) * 0.035;
-        p.y += uPointer.y * (uv.y - 0.5) * 0.025;
-        vRelief = depth;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform sampler2D uMap;
-      uniform vec2 uResolution;
-      uniform vec2 uPointer;
-      varying vec2 vUv;
-      varying float vRelief;
-      void main() {
-        float aspect = uResolution.x / max(1.0, uResolution.y);
-        float imageAspect = 1280.0 / 720.0;
-        vec2 uv = vUv;
-        if (aspect > imageAspect) {
-          float scale = imageAspect / aspect;
-          uv.y = (uv.y - 0.5) * scale + 0.5;
-        } else {
-          float scale = aspect / imageAspect;
-          uv.x = (uv.x - 0.5) * scale + 0.5;
-        }
-        vec2 texel = vec2(1.0 / 1280.0, 1.0 / 720.0);
-        vec3 center = texture2D(uMap, uv).rgb;
-        vec3 north = texture2D(uMap, uv + vec2(0.0, texel.y)).rgb;
-        vec3 south = texture2D(uMap, uv - vec2(0.0, texel.y)).rgb;
-        vec3 east = texture2D(uMap, uv + vec2(texel.x, 0.0)).rgb;
-        vec3 west = texture2D(uMap, uv - vec2(texel.x, 0.0)).rgb;
-        vec3 sharpened = center * 1.28 - (north + south + east + west) * 0.07;
-        sharpened = (sharpened - 0.5) * 1.08 + 0.5;
-        float light = 1.0 + clamp(vRelief * 0.7, -0.06, 0.06);
-        vec3 warmLift = vec3(0.018, 0.010, 0.002) * (0.35 + max(vRelief, 0.0));
-        gl_FragColor = vec4(max(sharpened * light + warmLift, 0.0), 1.0);
-        #include <tonemapping_fragment>
-        #include <colorspace_fragment>
-      }
-    `,
-    depthWrite: true,
-    depthTest: true,
-  });
-}
+const FRAME_RATE = 30;
+const VIDEO_PATH = `${import.meta.env.BASE_URL}assets/divine-sequence.mp4`;
 
 export default function CinematicShowroom() {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -91,30 +10,45 @@ export default function CinematicShowroom() {
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
-    let disposed = false;
+
     let raf = 0;
     let targetProgress = 0;
-    let displayedProgress = 0;
+    let lastSeekAt = 0;
     let pointerX = 0;
     let pointerY = 0;
-    let desiredKey = '';
-    let lastRequestedGlobalFrame = -1;
-    let lastScrollY = window.scrollY;
-    let scrollDirection = 1;
-    const cache = new Map<string, HTMLImageElement>();
-    const pending = new Map<string, HTMLImageElement>();
-    const loadQueue: string[] = [];
-    let activeLoads = 0;
-    const MAX_LOADS = 5;
+    let currentPointerX = 0;
+    let currentPointerY = 0;
+    let disposed = false;
+
+    // Decode the original 1,050 frames as one hardware-decoded, all-intra video.
+    const video = document.createElement('video');
+    video.src = VIDEO_PATH;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+    video.loop = false;
+    video.setAttribute('playsinline', '');
+    Object.assign(video.style, {
+      position: 'absolute',
+      width: '2px',
+      height: '2px',
+      opacity: '0',
+      pointerEvents: 'none',
+      left: '0',
+      top: '0',
+    });
+    host.appendChild(video);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: false,
       alpha: false,
       powerPreference: 'high-performance',
-      precision: 'highp',
+      precision: 'mediump',
+      stencil: false,
+      depth: false,
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.5 : 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.domElement.className = 'cinematic-webgl';
@@ -122,186 +56,85 @@ export default function CinematicShowroom() {
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#100d16');
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 20);
-    camera.position.set(0, 0, 5);
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+    camera.position.z = 5;
 
-    const sourceCanvas = document.createElement('canvas');
-    sourceCanvas.width = 1280;
-    sourceCanvas.height = 720;
-    const context = sourceCanvas.getContext('2d', { alpha: false });
-    if (!context) {
-      renderer.dispose();
-      return;
-    }
-    context.fillStyle = '#100d16';
-    context.fillRect(0, 0, 1280, 720);
-
-    const texture = new THREE.CanvasTexture(sourceCanvas);
+    const texture = new THREE.VideoTexture(video);
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
-    texture.generateMipmaps = true;
-    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    texture.generateMipmaps = false;
 
-    const material = createCinematicMaterial(texture);
-    const geometry = new THREE.PlaneGeometry(2, 2, 180, 102);
+    // A single clean video surface: no per-pixel sharpening, fake luminance relief,
+    // canvas copies, particle layers or expensive multi-sample fragment shader.
+    const geometry = new THREE.PlaneGeometry(2, 2, 24, 14);
+    const material = new THREE.MeshBasicMaterial({ map: texture, toneMapped: false });
     const plane = new THREE.Mesh(geometry, material);
-    plane.position.z = 0;
     scene.add(plane);
 
-    const ambient = new THREE.AmbientLight('#ffffff', 0.28);
-    scene.add(ambient);
-    const gold = new THREE.PointLight('#e6c28c', 1.1, 7);
-    gold.position.set(1.4, 1.1, 2);
-    scene.add(gold);
-    const violet = new THREE.PointLight('#9e72bb', 0.75, 7);
-    violet.position.set(-1.5, -0.8, 1.5);
-    scene.add(violet);
-
-    const dustCount = 160;
-    const dustPositions = new Float32Array(dustCount * 3);
-    for (let i = 0; i < dustCount; i += 1) {
-      dustPositions[i * 3] = (Math.random() - 0.5) * 2.2;
-      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 1.2;
-      dustPositions[i * 3 + 2] = Math.random() * 0.35 + 0.2;
-    }
-    const dustGeometry = new THREE.BufferGeometry();
-    dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-    const dustMaterial = new THREE.PointsMaterial({ color: '#f0d8ae', size: 0.0022, transparent: true, opacity: 0.28, sizeAttenuation: true, depthWrite: false });
-    const dust = new THREE.Points(dustGeometry, dustMaterial);
-    scene.add(dust);
-
-    const draw = (key: string) => {
-      const img = cache.get(key);
-      if (!img?.complete || !img.naturalWidth || desiredKey !== key) return;
-      context.drawImage(img, 0, 0, 1280, 720);
-      texture.needsUpdate = true;
-    };
-
-    const pumpQueue = () => {
-      while (!disposed && activeLoads < MAX_LOADS && loadQueue.length) {
-        const key = loadQueue.shift()!;
-        if (cache.has(key) || pending.has(key)) continue;
-        const [sceneIndex, frame] = key.split(':').map(Number);
-        const img = new Image();
-        img.decoding = 'async';
-        pending.set(key, img);
-        activeLoads += 1;
-        img.onload = () => {
-          pending.delete(key);
-          activeLoads -= 1;
-          if (!disposed) {
-            cache.set(key, img);
-            if (desiredKey === key) draw(key);
-            trimCache();
-            pumpQueue();
-          }
-        };
-        img.onerror = () => {
-          pending.delete(key);
-          activeLoads -= 1;
-          pumpQueue();
-        };
-        img.src = `${FRAME_ROOT}/scene-${String(sceneIndex + 1).padStart(2, '0')}/frame-${String(frame).padStart(3, '0')}.jpg`;
-      }
-    };
-
-    const enqueue = (sceneIndex: number, frame: number, priority = false) => {
-      if (sceneIndex < 0 || sceneIndex >= sceneCounts.length || frame < 1 || frame > sceneCounts[sceneIndex]) return;
-      const key = `${sceneIndex}:${frame}`;
-      if (cache.has(key)) {
-        if (priority) draw(key);
-        return;
-      }
-      if (pending.has(key) || loadQueue.includes(key)) return;
-      if (priority) loadQueue.unshift(key);
-      else loadQueue.push(key);
-      pumpQueue();
-    };
-
-    const trimCache = () => {
-      if (cache.size <= 28) return;
-      const keep = new Set<string>();
-      const { scene, frame } = resolveFrame(targetProgress);
-      for (let i = -7; i <= 18; i += 1) {
-        const index = sceneCounts.slice(0, scene).reduce((sum, n) => sum + n, 0) + frame - 1 + i;
-        if (index >= 0 && index < TOTAL) {
-          const resolved = resolveFrame(index / (TOTAL - 1));
-          keep.add(`${resolved.scene}:${resolved.frame}`);
-        }
-      }
-      for (const key of cache.keys()) {
-        if (cache.size <= 22) break;
-        if (!keep.has(key)) cache.delete(key);
-      }
-    };
-
-    const updateFromScroll = () => {
-      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
-      targetProgress = progress;
-      scrollDirection = window.scrollY >= lastScrollY ? 1 : -1;
-      lastScrollY = window.scrollY;
-      material.uniforms.uScroll.value = progress;
-    };
-
     const resize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      renderer.setSize(width, height);
+      const width = Math.max(1, window.innerWidth);
+      const height = Math.max(1, window.innerHeight);
       const aspect = width / height;
+      renderer.setSize(width, height, false);
       camera.left = -aspect;
       camera.right = aspect;
       camera.top = 1;
       camera.bottom = -1;
       camera.updateProjectionMatrix();
-      material.uniforms.uResolution.value.set(width, height);
-      plane.scale.set(aspect, 1, 1);
+
+      // Cover the viewport without stretching the original 16:9 frames.
+      const sourceAspect = 16 / 9;
+      if (aspect > sourceAspect) plane.scale.set(aspect / sourceAspect, 1, 1);
+      else plane.scale.set(1, sourceAspect / aspect, 1);
     };
 
+    const onScroll = () => {
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      targetProgress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+    };
     const onPointer = (event: PointerEvent) => {
       pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
       pointerY = -(event.clientY / window.innerHeight - 0.5) * 2;
     };
-    window.addEventListener('resize', resize);
+
+    const onMetadata = () => {
+      if (video.duration > 0) video.currentTime = targetProgress * video.duration;
+    };
+
+    video.addEventListener('loadedmetadata', onMetadata);
+    window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('pointermove', onPointer, { passive: true });
-    window.addEventListener('scroll', updateFromScroll, { passive: true });
     resize();
-    updateFromScroll();
+    onScroll();
+    video.load();
 
     const render = (time: number) => {
       if (disposed) return;
-      // Smooth small deltas, but accelerate when the visitor makes a large scroll jump.
-      const delta = targetProgress - displayedProgress;
-      displayedProgress += delta * 0.22;
-      if (Math.abs(delta) < 0.00008) displayedProgress = targetProgress;
-      const resolved = resolveFrame(displayedProgress);
-      if (resolved.globalIndex !== lastRequestedGlobalFrame) {
-        lastRequestedGlobalFrame = resolved.globalIndex;
-        desiredKey = `${resolved.scene}:${resolved.frame}`;
-        loadQueue.length = 0;
-        enqueue(resolved.scene, resolved.frame, true);
-        // Feed every intervening frame in the current travel direction to the decoder queue.
-        for (let i = 1; i <= 18; i += 1) {
-          const future = Math.max(0, Math.min(TOTAL - 1, resolved.globalIndex + i * scrollDirection));
-          const next = resolveFrame(future / (TOTAL - 1));
-          enqueue(next.scene, next.frame);
+
+      // The source is 30 fps. Seek at that cadence instead of decoding the same
+      // requested position repeatedly on every 60/120/144 Hz display refresh.
+      if (video.readyState >= HTMLMediaElement.HAVE_METADATA && time - lastSeekAt >= 1000 / FRAME_RATE) {
+        const duration = Number.isFinite(video.duration) ? video.duration : 0;
+        if (duration > 0) {
+          const nextTime = Math.min(duration - 1 / FRAME_RATE, targetProgress * duration);
+          if (Math.abs(video.currentTime - nextTime) > 1 / (FRAME_RATE * 2)) {
+            video.currentTime = Math.max(0, nextTime);
+          }
         }
-        for (let i = 1; i <= 3; i += 1) {
-          const previous = Math.max(0, Math.min(TOTAL - 1, resolved.globalIndex - i));
-          const prev = resolveFrame(previous / (TOTAL - 1));
-          enqueue(prev.scene, prev.frame);
-        }
+        lastSeekAt = time;
       }
-      material.uniforms.uTime.value = time * 0.001;
-      const pointer = material.uniforms.uPointer.value as THREE.Vector2;
-      pointer.lerp(new THREE.Vector2(pointerX, pointerY), 0.045);
-      camera.position.x += (pointerX * 0.045 - camera.position.x) * 0.035;
-      camera.position.y += (pointerY * 0.028 - camera.position.y) * 0.035;
+
+      // Restrained camera parallax, without distorting or blurring the source image.
+      currentPointerX += (pointerX - currentPointerX) * 0.045;
+      currentPointerY += (pointerY - currentPointerY) * 0.045;
+      camera.position.x = currentPointerX * 0.035;
+      camera.position.y = currentPointerY * 0.022;
       camera.lookAt(0, 0, 0);
-      plane.rotation.y += (pointerX * 0.012 - plane.rotation.y) * 0.035;
-      plane.rotation.x += (-pointerY * 0.009 - plane.rotation.x) * 0.035;
-      dust.rotation.z = Math.sin(time * 0.00007) * 0.012;
+      plane.rotation.y = currentPointerX * 0.008;
+      plane.rotation.x = -currentPointerY * 0.006;
+
       renderer.render(scene, camera);
       raf = requestAnimationFrame(render);
     };
@@ -310,19 +143,19 @@ export default function CinematicShowroom() {
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
+      video.removeEventListener('loadedmetadata', onMetadata);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pointermove', onPointer);
-      window.removeEventListener('scroll', updateFromScroll);
-      cache.clear();
-      pending.clear();
-      loadQueue.length = 0;
-      geometry.dispose();
-      material.dispose();
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
       texture.dispose();
-      dustGeometry.dispose();
-      dustMaterial.dispose();
+      material.dispose();
+      geometry.dispose();
       renderer.dispose();
       renderer.domElement.remove();
+      video.remove();
     };
   }, []);
 
