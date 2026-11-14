@@ -98,6 +98,7 @@ export default function CinematicShowroom() {
     let pointerX = 0;
     let pointerY = 0;
     let desiredKey = '';
+    let lastRequestedGlobalFrame = -1;
     let lastScrollY = window.scrollY;
     let scrollDirection = 1;
     const cache = new Map<string, HTMLImageElement>();
@@ -241,21 +242,6 @@ export default function CinematicShowroom() {
       targetProgress = progress;
       scrollDirection = window.scrollY >= lastScrollY ? 1 : -1;
       lastScrollY = window.scrollY;
-      const resolved = resolveFrame(progress);
-      desiredKey = `${resolved.scene}:${resolved.frame}`;
-      enqueue(resolved.scene, resolved.frame, true);
-      // Direction-aware look-ahead. The queue is deliberately bounded so a fast fling cannot
-      // flood the browser with hundreds of simultaneous image decodes.
-      for (let i = 1; i <= 16; i += 1) {
-        const future = Math.max(0, Math.min(TOTAL - 1, resolved.globalIndex + i * scrollDirection));
-        const next = resolveFrame(future / (TOTAL - 1));
-        enqueue(next.scene, next.frame);
-      }
-      for (let i = 1; i <= 3; i += 1) {
-        const previous = Math.max(0, Math.min(TOTAL - 1, resolved.globalIndex - i));
-        const prev = resolveFrame(previous / (TOTAL - 1));
-        enqueue(prev.scene, prev.frame);
-      }
       material.uniforms.uScroll.value = progress;
     };
 
@@ -287,7 +273,26 @@ export default function CinematicShowroom() {
       if (disposed) return;
       // Smooth small deltas, but accelerate when the visitor makes a large scroll jump.
       const delta = targetProgress - displayedProgress;
-      displayedProgress += Math.sign(delta) * Math.min(Math.abs(delta), Math.max(0.0008, Math.abs(delta) * 0.18));
+      displayedProgress += delta * 0.22;
+      if (Math.abs(delta) < 0.00008) displayedProgress = targetProgress;
+      const resolved = resolveFrame(displayedProgress);
+      if (resolved.globalIndex !== lastRequestedGlobalFrame) {
+        lastRequestedGlobalFrame = resolved.globalIndex;
+        desiredKey = `${resolved.scene}:${resolved.frame}`;
+        loadQueue.length = 0;
+        enqueue(resolved.scene, resolved.frame, true);
+        // Feed every intervening frame in the current travel direction to the decoder queue.
+        for (let i = 1; i <= 18; i += 1) {
+          const future = Math.max(0, Math.min(TOTAL - 1, resolved.globalIndex + i * scrollDirection));
+          const next = resolveFrame(future / (TOTAL - 1));
+          enqueue(next.scene, next.frame);
+        }
+        for (let i = 1; i <= 3; i += 1) {
+          const previous = Math.max(0, Math.min(TOTAL - 1, resolved.globalIndex - i));
+          const prev = resolveFrame(previous / (TOTAL - 1));
+          enqueue(prev.scene, prev.frame);
+        }
+      }
       material.uniforms.uTime.value = time * 0.001;
       const pointer = material.uniforms.uPointer.value as THREE.Vector2;
       pointer.lerp(new THREE.Vector2(pointerX, pointerY), 0.045);
