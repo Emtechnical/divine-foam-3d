@@ -347,3 +347,66 @@ html,body{background:#100d16;color:#f4eee7}
  .showroom-frame-counter i{width:13px}
 }
 @media(prefers-reduced-motion:reduce){.showroom-sticky .showroom-frame-canvas{cursor:default}}
+
+
+/* DIVINE V3 — fixed cinematic world behind the complete scrolling website */
+html,body,#root{min-height:100%;background:#100d16}
+html{scroll-behavior:smooth}
+.site{position:relative;isolation:isolate;overflow:clip;background:transparent!important}
+.cinematic-background{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  width:100vw;
+  height:100svh;
+  overflow:hidden;
+  pointer-events:none;
+  background:#100d16;
+  contain:strict;
+}
+.cinematic-background .cinematic-webgl{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%!important;
+  height:100%!important;
+}
+.site>.atmosphere-canvas{z-index:1}
+.site>.cinematic-background{z-index:0}
+.site>.header,.site>main,.site>.floating-home,.site>.footer{
+  position:relative;
+  z-index:2;
+}
+.site>.header{position:sticky;z-index:20}
+.site>main{isolation:isolate;background:transparent}
+.site>main>section:not(.hero){
+  background-color:rgba(16,13,22,.76);
+  backdrop-filter:blur(5px) saturate(112%);
+  -webkit-backdrop-filter:blur(5px) saturate(112%);
+}
+.site>main>.intro-section{
+  background:linear-gradient(180deg,rgba(16,13,22,.68),rgba(16,13,22,.78))!important;
+}
+.site>main>.catalogue-section{
+  background:linear-gradient(145deg,rgba(35,25,41,.84),rgba(16,13,22,.86))!important;
+}
+.site>main>.business-section{
+  background:linear-gradient(115deg,rgba(36,24,43,.88),rgba(57,37,59,.86) 54%,rgba(23,19,31,.9))!important;
+}
+.site>main>.brands-section{
+  background:rgba(13,11,18,.76)!important;
+}
+.site>main>.contact-section{
+  background:radial-gradient(ellipse at 80% 20%,rgba(111,71,137,.32),transparent 42%),linear-gradient(90deg,rgba(16,13,22,.88),rgba(16,13,22,.76))!important;
+}
+.site>.footer{background:rgba(7,6,10,.94)}
+/* The frame sequence is now a fixed viewport layer, not a tall blank section. */
+.cinematic-showroom{height:0!important;min-height:0!important;position:fixed!important;inset:0!important;pointer-events:none!important}
+.showroom-track,.showroom-sticky,.showroom-copy,.showroom-topline,.showroom-side,.showroom-frame-counter{display:none!important}
+@media(max-width:760px){
+  .site>main>section:not(.hero){backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .cinematic-background{height:100svh}
+}
+@media(prefers-reduced-motion:reduce){
+  .cinematic-background{display:none}
+}
