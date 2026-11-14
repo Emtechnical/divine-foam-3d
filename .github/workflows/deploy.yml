@@ -24,6 +24,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Assemble all 1,050 original frames into a seek-optimized video
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/divine-sequence
+          index=1
+          for scene in 01 02 03 04; do
+            for frame in public/assets/frames/scene-${scene}/frame-*.jpg; do
+              test -s "$frame"
+              printf -v output "/tmp/divine-sequence/frame-%04d.jpg" "$index"
+              ln "$frame" "$output"
+              index=$((index + 1))
+            done
+          done
+          test "$index" -eq 1051
+          mkdir -p public/assets
+          ffmpeg -hide_banner -loglevel error -y \
+            -framerate 30 -start_number 1 -i /tmp/divine-sequence/frame-%04d.jpg \
+            -frames:v 1050 -an -c:v libx264 -preset veryfast -crf 18 \
+            -tune stillimage -g 1 -keyint_min 1 -sc_threshold 0 \
+            -pix_fmt yuv420p -movflags +faststart \
+            public/assets/divine-sequence.mp4
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,nb_frames,r_frame_rate -of default=noprint_wrappers=1 public/assets/divine-sequence.mp4
       - name: Install dependencies
         run: npm install
       - name: Type-check and build
