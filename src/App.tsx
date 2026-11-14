@@ -51,6 +51,7 @@ export default function App() {
 
   return <div className={language === 'gu' ? 'site gujarati' : 'site'}>
     <Atmosphere />
+    <CinematicShowroom />
     <header className="header">
       <a className="brand" href="#top" aria-label="Divine Foam & Mattress home">
         <img className="brand-logo" src={divineAssets.logo} alt="Divine Foam & Mattress logo" />
@@ -86,8 +87,6 @@ export default function App() {
         <div className="hero-art"><MaterialScene/><div className="art-side-note">FOAM / FABRIC / COMFORT</div></div>
         <div className="hero-bottom"><span>SCROLL TO EXPLORE</span><span className="scroll-line"/></div>
       </section>
-
-      <CinematicShowroom language={language}/>
 
       <section className="intro-section section-wrap" id="about">
         <div className="section-kicker">{t.introEyebrow}</div>
