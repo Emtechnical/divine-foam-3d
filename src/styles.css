@@ -419,3 +419,57 @@ html{scroll-behavior:smooth}
 .site>main>.business-section{background:linear-gradient(115deg,rgba(36,24,43,.74),rgba(57,37,59,.72) 54%,rgba(23,19,31,.76))!important}
 .site>main>.brands-section{background:rgba(13,11,18,.54)!important}
 .site>main>.contact-section{background:radial-gradient(ellipse at 80% 20%,rgba(111,71,137,.24),transparent 42%),linear-gradient(90deg,rgba(16,13,22,.74),rgba(16,13,22,.64))!important}
+
+
+/* DIVINE CINEMATIC PASS — clear footage, typography-led foreground */
+.cinematic-background{z-index:0!important;background:#100d16!important;filter:none!important;opacity:1!important}
+.cinematic-background canvas{filter:none!important;opacity:1!important;image-rendering:auto}
+.site>.atmosphere-canvas{opacity:.12!important;mix-blend-mode:screen!important}
+.site>main{background:transparent!important}
+.site>main>section:not(.hero){backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.site>main>.intro-section{background:linear-gradient(90deg,rgba(12,9,17,.78),rgba(12,9,17,.42))!important}
+.site>main>.catalogue-section{background:linear-gradient(110deg,rgba(16,12,21,.86),rgba(16,12,21,.62))!important}
+.site>main>.business-section{background:linear-gradient(105deg,rgba(26,17,31,.84),rgba(35,22,40,.60))!important}
+.site>main>.brands-section{background:linear-gradient(90deg,rgba(12,9,17,.78),rgba(12,9,17,.42))!important}
+.site>main>.contact-section{background:linear-gradient(105deg,rgba(13,10,18,.84),rgba(13,10,18,.56))!important}
+.site>.footer{background:rgba(7,6,10,.92)!important}
+/* Text-led hero: let the footage own the screen */
+.hero{background:transparent!important;min-height:calc(100svh - 82px)!important;height:calc(100svh - 82px)!important}
+.hero-art{display:none!important}
+.hero-copy{width:min(700px,70vw)!important;max-width:700px!important;left:clamp(28px,9vw,140px)!important;bottom:clamp(90px,15vh,150px)!important}
+.hero h1{max-width:720px!important;font-size:clamp(48px,7vw,104px)!important}
+.hero-description{max-width:460px!important;color:rgba(248,239,229,.82)!important}
+.hero .eyebrow,.hero .hero-meta,.hero .hero-bottom{color:rgba(246,235,220,.72)!important}
+.hero-ambient{opacity:.08!important}
+/* Clear, editorial text over the full-bleed footage; no frosted glass */
+.intro-section,.catalogue-section,.business-section,.brands-section,.contact-section{isolation:isolate}
+.intro-grid,.section-heading,.business-inner,.brands-section h2,.contact-copy,.contact-details>*{filter:none!important}
+.intro-grid h2,.section-heading h2,.business-inner h2,.brands-section h2,.contact-copy h2{text-shadow:0 3px 24px rgba(0,0,0,.48)}
+.intro-grid p,.section-heading>p,.business-inner>div>p,.contact-copy>p,.category-info p{color:rgba(244,235,226,.82)!important;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+/* Material catalogue: typographic rows rather than opaque image tiles */
+.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0 34px!important}
+.category-card{display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;gap:14px!important;padding:20px 4px!important;background:transparent!important;border:0!important;border-top:1px solid rgba(244,235,226,.25)!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;transform:none!important}
+.category-art{display:none!important}
+.category-info{padding:0!important;min-width:0}
+.category-info h3{font-size:clamp(16px,1.6vw,22px)!important;color:#f7eee5!important}
+.category-info p{font-size:11px!important;max-width:440px!important}
+.round-arrow{border-color:rgba(225,194,145,.5)!important}
+.category-number{display:none!important}
+.category-card:hover{background:rgba(255,255,255,.035)!important}
+.category-card:nth-child(2),.category-card:nth-child(3),.category-card:nth-child(4),.category-card:nth-child(5),.category-card:nth-child(6){transition-delay:0s!important}
+@keyframes divineTextReveal{from{opacity:0;transform:translate3d(0,34px,0);filter:blur(7px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+.hero-copy>*{animation:divineTextReveal .9s cubic-bezier(.2,.75,.2,1) both}
+.hero-copy>*:nth-child(2){animation-delay:.08s}
+.hero-copy>*:nth-child(3){animation-delay:.16s}
+.hero-copy>*:nth-child(4){animation-delay:.24s}
+.hero-copy>*:nth-child(5){animation-delay:.32s}
+.intro-grid.is-visible,.section-heading.is-visible,.category-card.is-visible,.business-inner.is-visible,.audience-row.is-visible,.brands-section h2.is-visible,.brand-list span.is-visible,.contact-copy.is-visible,.contact-details>*{animation:divineTextReveal .75s cubic-bezier(.2,.75,.2,1) both}
+@media(max-width:760px){
+ .hero{min-height:calc(100svh - 70px)!important;height:auto!important}
+ .hero-copy{left:24px!important;right:24px!important;bottom:86px!important;width:auto!important;max-width:none!important}
+ .hero h1{font-size:clamp(44px,11vw,68px)!important}
+ .category-grid{grid-template-columns:1fr!important}
+ .category-card{padding:17px 2px!important}
+ .site>main>.intro-section,.site>main>.catalogue-section,.site>main>.business-section,.site>main>.brands-section,.site>main>.contact-section{background:rgba(13,10,18,.76)!important}
+}
+@media(prefers-reduced-motion:reduce){.hero-copy>*{animation:none!important}}
