@@ -1,0 +1,31 @@
+{
+  "total_frames": 1050,
+  "scenes": [
+    {
+      "folder": "scene-01",
+      "count": 300,
+      "first": "frame-001.jpg",
+      "last": "frame-300.jpg"
+    },
+    {
+      "folder": "scene-02",
+      "count": 270,
+      "first": "frame-001.jpg",
+      "last": "frame-270.jpg"
+    },
+    {
+      "folder": "scene-03",
+      "count": 270,
+      "first": "frame-001.jpg",
+      "last": "frame-270.jpg"
+    },
+    {
+      "folder": "scene-04",
+      "count": 210,
+      "first": "frame-001.jpg",
+      "last": "frame-210.jpg"
+    }
+  ],
+  "resolution": "1280x720",
+  "naming": "scene-XX/frame-XXX.jpg"
+}
