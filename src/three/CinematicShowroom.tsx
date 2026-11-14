@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const sceneCounts = [300, 270, 270, 210] as const;
 const TOTAL = sceneCounts.reduce((sum, value) => sum + value, 0);
@@ -98,7 +97,6 @@ export default function CinematicShowroom() {
     let displayedProgress = 0;
     let pointerX = 0;
     let pointerY = 0;
-    let currentGlobalFrame = -1;
     let desiredKey = '';
     let lastScrollY = window.scrollY;
     let scrollDirection = 1;
@@ -177,8 +175,6 @@ export default function CinematicShowroom() {
       if (!img?.complete || !img.naturalWidth || desiredKey !== key) return;
       context.drawImage(img, 0, 0, 1280, 720);
       texture.needsUpdate = true;
-      const [sceneIndex, frame] = key.split(':').map(Number);
-      currentGlobalFrame = sceneCounts.slice(0, sceneIndex).reduce((sum, n) => sum + n, 0) + frame - 1;
     };
 
     const pumpQueue = () => {
